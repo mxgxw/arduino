@@ -138,7 +138,7 @@ void GET() {
 }
 
 
-boolean checkForGSM900() {
+boolean checkForSIM900() {
   // Figure out if already connected
   pushSlow("AT\r\n");
   if(!waitForString("OK",5000))
@@ -160,13 +160,13 @@ void loop() // run over and over
   if(currentStatus==OFFLINE) {
     // Si el estatus es OFFLINE intentar detectar
     // el modulo por dos maneras
-    Serial.write("Trying to detect GSM900 module\r\n");
+    Serial.write("Trying to detect SIM900 module\r\n");
     // Esperando a Call ready
     if(waitForString("Call Ready",5000)) {
       Serial.write("GSM Module detected. Current status: ONLINE\r\n");
       currentStatus=ONLINE;
       // O verificando mediante comandos AT
-    } else if(checkForGSM900()) {
+    } else if(checkForSIM900()) {
       Serial.write("GSM Module already connected. Changing status to: ONLINE\r\n");
       currentStatus=ONLINE;
     }
